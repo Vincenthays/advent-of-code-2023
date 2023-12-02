@@ -23,15 +23,15 @@ fn main() {
 
     let sum =
         include_str!("input.txt")
-            .par_lines()
-            .map(|l| {
-                let first = re1.find(l).map(|v| to_u32(v.as_str())).unwrap();
-                let l_rev = l.to_string().chars().rev().collect::<String>();
-                let last = re2.find(&l_rev).map(|v| to_u32(v.as_str())).unwrap_or(first);
+        .par_lines()
+        .map(|l| {
+            let first = re1.find(l).map(|v| to_u32(v.as_str())).unwrap();
+            let l_rev = l.to_string().chars().rev().collect::<String>();
+            let last = re2.find(&l_rev).map(|v| to_u32(v.as_str())).unwrap_or(first);
 
-                first * 10 + last
-            })
-            .sum::<u32>();
+            first * 10 + last
+        })
+        .sum::<u32>();
 
     println!("{}", sum);
 }
