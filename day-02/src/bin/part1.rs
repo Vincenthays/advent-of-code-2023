@@ -1,7 +1,9 @@
+use rayon::prelude::*;
+
 fn main() {
     let sum =
         include_str!("input.txt")
-        .lines()
+        .par_lines()
         .map(|l| {
             let (game, sets) = l.split_once(": ").unwrap();
 
