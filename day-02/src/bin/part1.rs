@@ -20,7 +20,6 @@ fn main() {
             }
 
             game
-                .trim()
                 .strip_prefix("Game ")
                 .unwrap()
                 .parse()
