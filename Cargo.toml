@@ -4,6 +4,6 @@ members = [
     "day-02",
 ]
 
-[dependencies]
+[workspace.dependencies]
 rayon = "1.8.0"
 regex = "1.10.2"
