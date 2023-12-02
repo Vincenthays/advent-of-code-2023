@@ -5,7 +5,7 @@ fn main() {
         include_str!("input.txt")
             .lines()
             .map(|l| {
-                let (game, sets) = l.split_once(": ").unwrap();
+                let (_, sets) = l.split_once(": ").unwrap();
 
                 let acc = sets
                     .split("; ")
