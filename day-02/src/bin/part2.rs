@@ -12,7 +12,7 @@ fn main() {
             .split("; ")
             .flat_map(|set| set.split(", "))
             .fold(HashMap::new(), |mut acc, color| {
-                let (number, color) = color.trim().split_once(' ').unwrap();
+                let (number, color) = color.split_once(' ').unwrap();
                 let number = number.parse::<u32>().unwrap();
 
                 acc
