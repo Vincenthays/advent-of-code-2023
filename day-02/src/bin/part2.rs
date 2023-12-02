@@ -31,12 +31,3 @@ fn main() {
 
     println!("{}", sum);
 }
-
-fn is_row_valid(color: &str, count: u8) -> bool {
-    match color {
-        "red" if count <= 12 => true,
-        "green" if count <= 13 => true,
-        "blue" if count <= 14 => true,
-        _ => false
-    }
-}
