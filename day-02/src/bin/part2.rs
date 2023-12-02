@@ -1,9 +1,10 @@
+use rayon::prelude::*;
 use std::collections::HashMap;
 
 fn main() {
     let sum =
         include_str!("input.txt")
-        .lines()
+        .par_lines()
         .map(|l| l
             .split_once(": ")
             .unwrap()
