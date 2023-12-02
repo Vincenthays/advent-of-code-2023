@@ -17,11 +17,7 @@ fn main() {
 
                 acc
                     .entry(color)
-                    .and_modify(|v| {
-                        if *v < number {
-                            *v = number
-                        }
-                    })
+                    .and_modify(|v| *v = std::cmp::max(number, *v))
                     .or_insert(number);
 
                 acc
