@@ -21,9 +21,8 @@ fn main() {
 
             game
                 .trim()
-                .split_once(' ')
+                .strip_prefix("Game ")
                 .unwrap()
-                .1
                 .parse()
                 .unwrap()
         })
