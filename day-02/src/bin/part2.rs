@@ -1,30 +1,35 @@
 use std::collections::HashMap;
 
 fn main() {
-    let sum: u32 =
+    let sum =
         include_str!("input.txt")
-            .lines()
-            .map(|l| l
-                .split_once(": ")
-                .unwrap()
-                .1
-                .split("; ")
-                .flat_map(|set| set.split(", "))
-                .fold(HashMap::new(), |mut acc, color| {
-                    let (number, color) = color.trim().split_once(' ').unwrap();
-                    let number: u32 = number.parse().unwrap();
+        .lines()
+        .map(|l| l
+            .split_once(": ")
+            .unwrap()
+            .1
+            .split("; ")
+            .flat_map(|set| set.split(", "))
+            .fold(HashMap::new(), |mut acc, color| {
+                let (number, color) = color.trim().split_once(' ').unwrap();
+                let number = number.parse::<u32>().unwrap();
 
-                    if acc.entry(color).or_insert(number).to_owned() < number {
-                        acc.insert(color, number);
-                    }
+                acc
+                    .entry(color)
+                    .and_modify(|v| {
+                        if *v < number {
+                            *v = number
+                        }
+                    })
+                    .or_insert(number);
 
-                    acc
-                })
-                .into_values()
-                .reduce(|acc, v| acc * v)
-                .unwrap()
-            )
-            .sum();
+                acc
+            })
+            .into_values()
+            .reduce(|acc, v| acc * v)
+            .unwrap()
+        )
+        .sum::<u32>();
 
     println!("{}", sum);
 }
