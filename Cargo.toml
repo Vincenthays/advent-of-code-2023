@@ -1,6 +1,9 @@
 [workspace]
-
 members = [
     "day-01",
     "day-02",
 ]
+
+[dependencies]
+rayon = "1.8.0"
+regex = "1.10.2"
