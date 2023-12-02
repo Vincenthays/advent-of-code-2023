@@ -6,7 +6,7 @@ fn main() {
 
     let sum: u32 =
         include_str!("input1.txt")
-        .par_split('\n')
+        .par_lines()
         .map(|l| {
             let clean = re.replace_all(l, "");
             let mut chars = clean.chars();

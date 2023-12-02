@@ -33,7 +33,7 @@ fn main() {
     let sum: u32 =
         include_str!("input1.txt")
         // DATA
-        .par_split('\n')
+        .par_lines()
         .map(|l| {
             let first = re1.find(l).map(|v| to_u32(v.as_str())).unwrap();
             let l_rev = l.to_string().chars().rev().collect::<String>();
