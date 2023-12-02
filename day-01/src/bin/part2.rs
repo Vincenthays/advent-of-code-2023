@@ -18,21 +18,20 @@ fn to_u32(s: &str) -> u32 {
 }
 
 fn main() {
-    let regex_str = "one|two|three|four|five|six|seven|eight|nine";
-    let re1 = Regex::new(&format!(r"(\d|{regex_str})")).unwrap();
-    let re2 = Regex::new(&format!(r"(\d|{})", regex_str.chars().rev().collect::<String>())).unwrap();
+    let re1 = Regex::new(r"(\d|one|two|three|four|five|six|seven|eight|nine)").unwrap();
+    let re2 = Regex::new(r"(\d|eno|owt|eerht|ruof|evif|xis|neves|thgie|enin)").unwrap();
 
     let sum =
         include_str!("input.txt")
-        .par_lines()
-        .map(|l| {
-            let first = re1.find(l).map(|v| to_u32(v.as_str())).unwrap();
-            let l_rev = l.to_string().chars().rev().collect::<String>();
-            let last = re2.find(&l_rev).map(|v| to_u32(v.as_str())).unwrap_or(first);
+            .par_lines()
+            .map(|l| {
+                let first = re1.find(l).map(|v| to_u32(v.as_str())).unwrap();
+                let l_rev = l.to_string().chars().rev().collect::<String>();
+                let last = re2.find(&l_rev).map(|v| to_u32(v.as_str())).unwrap_or(first);
 
-            first * 10 + last
-        })
-        .sum::<u32>();
+                first * 10 + last
+            })
+            .sum::<u32>();
 
     println!("{}", sum);
 }
