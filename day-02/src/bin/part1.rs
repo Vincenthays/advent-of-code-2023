@@ -1,5 +1,5 @@
 fn main() {
-    let sum: u32 =
+    let sum =
         include_str!("input.txt")
         .lines()
         .map(|l| {
@@ -13,13 +13,19 @@ fn main() {
                     is_row_valid(color, number.parse().unwrap())
                 });
 
-            if is_valid {
-                let (_, number) = game.trim().split_once(' ').unwrap();
-                return number.parse().unwrap();
+            if !is_valid {
+                return 0;
             }
 
-            0
-        }).sum();
+            game
+                .trim()
+                .split_once(' ')
+                .unwrap()
+                .1
+                .parse()
+                .unwrap()
+
+        }).sum::<u32>();
 
     println!("{}", sum);
 }
