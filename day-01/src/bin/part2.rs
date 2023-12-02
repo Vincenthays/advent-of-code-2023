@@ -1,14 +1,6 @@
 use regex::Regex;
 use rayon::prelude::*;
 
-const DATA: &str = r#"two1nine
-eightwothree
-abcone2threexyz
-xtwone3four
-4nineeightseven2
-zoneight234
-7pqrstsixteen"#;
-
 
 fn to_u32(s: &str) -> u32 {
     match s {
@@ -31,8 +23,7 @@ fn main() {
     let re2 = Regex::new(&format!(r"(\d|{})", regex_str.chars().rev().collect::<String>())).unwrap();
 
     let sum: u32 =
-        include_str!("input1.txt")
-        // DATA
+        include_str!("input.txt")
         .par_lines()
         .map(|l| {
             let first = re1.find(l).map(|v| to_u32(v.as_str())).unwrap();

@@ -5,7 +5,7 @@ fn main() {
     let re = Regex::new(r"\D").unwrap();
 
     let sum: u32 =
-        include_str!("input1.txt")
+        include_str!("input.txt")
         .par_lines()
         .map(|l| {
             let clean = re.replace_all(l, "");
