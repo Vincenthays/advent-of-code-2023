@@ -27,7 +27,8 @@ fn main() {
                 .parse()
                 .unwrap()
 
-        }).sum::<u32>();
+        })
+        .sum::<u32>();
 
     println!("{}", sum);
 }

@@ -4,7 +4,7 @@ use rayon::prelude::*;
 fn main() {
     let re = Regex::new(r"\D").unwrap();
 
-    let sum: u32 =
+    let sum =
         include_str!("input.txt")
         .par_lines()
         .map(|l| {
@@ -17,7 +17,8 @@ fn main() {
             let last = last.to_digit(10).unwrap();
 
             first * 10 + last
-        }).sum();
+        })
+        .sum::<u32>();
 
     println!("{}", sum);
 }

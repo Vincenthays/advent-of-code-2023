@@ -22,7 +22,7 @@ fn main() {
     let re1 = Regex::new(&format!(r"(\d|{regex_str})")).unwrap();
     let re2 = Regex::new(&format!(r"(\d|{})", regex_str.chars().rev().collect::<String>())).unwrap();
 
-    let sum: u32 =
+    let sum =
         include_str!("input.txt")
         .par_lines()
         .map(|l| {
@@ -31,7 +31,8 @@ fn main() {
             let last = re2.find(&l_rev).map(|v| to_u32(v.as_str())).unwrap_or(first);
 
             first * 10 + last
-        }).sum();
+        })
+        .sum::<u32>();
 
     println!("{}", sum);
 }
