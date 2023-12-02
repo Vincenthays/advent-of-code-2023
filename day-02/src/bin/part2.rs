@@ -27,7 +27,8 @@ fn main() {
                 println!("{:?}", &acc);
 
                 acc
-            }).sum();
+            })
+            .sum();
 
     println!("{}", sum);
 }
