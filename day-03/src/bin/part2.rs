@@ -33,7 +33,7 @@ fn check_line_pos(input: &Vec<&str>, line_index: usize, char_index: usize) -> Ve
             .unwrap()
             .find_iter(line)
             .filter(|m| {
-                for i in m.start()-1..m.end()+2 {
+                for i in m.start()..m.end()+2 {
                     if i == char_index {
                         return true
                     }
