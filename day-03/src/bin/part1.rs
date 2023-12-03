@@ -1,6 +1,6 @@
 use regex::Regex;
 
-const RE_SYMBOL: Regex = Regex::new(r"[^(\d|\\.)]").unwrap();
+const RE_SYMBOL: Regex = Regex::new(r"[^(\d|\\.)]").expect("");
 
 fn main() {
     let re = Regex::new(r"\d+").unwrap();
@@ -40,22 +40,16 @@ fn main() {
 }
 
 fn check_diagonal_neighbors(input: &Vec<&str>, i: usize, j: usize) -> bool {
-    /// line up
-    if let Some(line) = input.get(i-1) {
-        /// up left || up right
-        if check_symbol(line.chars().nth(j-1)) || check_symbol(line.chars().nth(j+1)) {
-            return true;
-        }
-    }
+    return check_line_pos(input, i+1, j) /// line up
+        || check_line_pos(input, i, j)   /// same line
+        || check_line_pos(input, i-1, j) /// line down
+}
 
-    /// line down
-    if let Some(line) = input.get(i+1) {
-        /// down left || down right
-        if check_symbol(line.chars().nth(j-1)) || check_symbol(line.chars().nth(j+1)) {
-            return true;
-        }
+fn check_line_pos(input: &Vec<&str>, line_index: usize, char_index: usize) -> bool {
+    if let Some(line) = input.get(line_index) {
+        return check_symbol(line.chars().nth(char_index-1)) /// before
+            || check_symbol(line.chars().nth(char_index+1)) /// after
     }
-
     return false
 }
 
