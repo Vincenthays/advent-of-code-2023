@@ -10,7 +10,7 @@ fn main() {
         .map(|i| re
             .find_iter(input[i])
             .filter(|m| {
-                let has_diagonal_neighbors = (m.start()..=m.end())
+                let has_diagonal_neighbors = (m.start()..m.end())
                     .any(|j| check_diagonal_neighbors(&input, i, j));
 
                 return has_diagonal_neighbors
@@ -33,6 +33,7 @@ fn check_diagonal_neighbors(input: &Vec<&str>, i: usize, j: usize) -> bool {
 fn check_line_pos(input: &Vec<&str>, line_index: usize, char_index: usize) -> bool {
     if let Some(line) = input.get(line_index) {
         return check_symbol(line.chars().nth(char_index-1)) // before
+            || check_symbol(line.chars().nth(char_index)) // middle
             || check_symbol(line.chars().nth(char_index+1)) // after
     }
     return false
