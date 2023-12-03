@@ -22,8 +22,8 @@ fn main() {
                 }
 
                 /// before || after
-                if check_symbol(input[i].get(m.start()-1))
-                    || check_symbol(input[i].get(m.end()+1)) {
+                if check_symbol(input[i].chars().nth(m.start()-1))
+                    || check_symbol(input[i].chars().nth(m.end()+1)) {
                     return true
                 }
 
@@ -34,6 +34,8 @@ fn main() {
                 m
             })
             .collect::<Vec<_>>();
+
+        println!("{:?}", m);
     }
 }
 
@@ -41,7 +43,7 @@ fn check_diagonal_neighbors(input: &Vec<&str>, i: usize, j: usize) -> bool {
     /// line up
     if let Some(line) = input.get(i-1) {
         /// up left || up right
-        if check_symbol(line.get(j-1)) || check_symbol(line.get(j+1)) {
+        if check_symbol(line.chars().nth(j-1)) || check_symbol(line.chars().nth(j+1)) {
             return true;
         }
     }
@@ -49,7 +51,7 @@ fn check_diagonal_neighbors(input: &Vec<&str>, i: usize, j: usize) -> bool {
     /// line down
     if let Some(line) = input.get(i+1) {
         /// down left || down right
-        if check_symbol(line.get(j-1)) || check_symbol(line.get(j+1)) {
+        if check_symbol(line.chars().nth(j-1)) || check_symbol(line.chars().nth(j+1)) {
             return true;
         }
     }
@@ -57,9 +59,9 @@ fn check_diagonal_neighbors(input: &Vec<&str>, i: usize, j: usize) -> bool {
     return false
 }
 
-fn check_symbol(c: Option<&str>) -> bool {
+fn check_symbol(c: Option<char>) -> bool {
     if let Some(c) = c {
-        return RE_SYMBOL.is_match(c);
+        return RE_SYMBOL.is_match(&c.to_string());
     }
     return false;
 }
