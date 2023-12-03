@@ -10,12 +10,7 @@ fn main() {
         (0..input.len())
         .map(|i| re
             .find_iter(input[i])
-            .map(|m| {
-                let n = find_neighbors(&input, i, m.start());
-                println!("{:?} {:?}", m, n);
-
-                n
-            })
+            .map(|m| find_neighbors(&input, i, m.end()))
             .filter(|n| n.len() == 2)
             .map(|n| n[0] * n[1])
             .sum::<u32>()
@@ -38,8 +33,7 @@ fn check_line_pos(input: &Vec<&str>, line_index: usize, char_index: usize) -> Ve
             .unwrap()
             .find_iter(line)
             .filter(|m| {
-                println!("{:?}", m);
-                for i in m.start()..m.end()+1 {
+                for i in m.start()-1..m.end()+2 {
                     if i == char_index {
                         return true
                     }
