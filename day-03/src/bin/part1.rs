@@ -6,7 +6,8 @@ fn main() {
         .lines()
         .collect::<Vec<_>>();
 
-    let sum = (0..input.len())
+    let sum =
+        (0..input.len())
         .map(|i| re
             .find_iter(input[i])
             .filter(|m| {
