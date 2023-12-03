@@ -15,7 +15,7 @@ fn main() {
 
                 return has_diagonal_neighbors
                     || check_symbol(input[i].chars().nth(m.start()-1))
-                    || check_symbol(input[i].chars().nth(m.end()+1))
+                    || check_symbol(input[i].chars().nth(m.end()))
             })
             .map(|m| m.as_str().parse::<u32>().unwrap())
             .sum::<u32>()
