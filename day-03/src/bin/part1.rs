@@ -2,7 +2,7 @@ use regex::Regex;
 
 fn main() {
     let re = Regex::new(r"\d+").unwrap();
-    let input = include_str!("input_test.txt")
+    let input = include_str!("input.txt")
         .lines()
         .collect::<Vec<_>>();
 
