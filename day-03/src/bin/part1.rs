@@ -21,13 +21,9 @@ fn main() {
                     return true
                 }
 
-                /// check symb
-                if input[i].get(m.start()-1) == Some(true) {
-                    return true;
-                }
-
-                if input[i].get(m.end()+1) == Some(true) {
-                    return true;
+                /// before || after
+                if check_symbol(input[i].get(m.start()-1)) || check_symbol(input[i].get(m.end()+1)) {
+                    return true
                 }
 
                 return false
