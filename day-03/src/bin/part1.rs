@@ -22,11 +22,16 @@ fn main() {
                 }
 
                 /// before || after
-                if check_symbol(input[i].get(m.start()-1)) || check_symbol(input[i].get(m.end()+1)) {
+                if check_symbol(input[i].get(m.start()-1))
+                    || check_symbol(input[i].get(m.end()+1)) {
                     return true
                 }
 
                 return false
+            })
+            .map(|m| {
+                println!("{:?}", m);
+                m
             })
             .collect::<Vec<_>>();
     }
