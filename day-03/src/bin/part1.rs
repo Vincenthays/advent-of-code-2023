@@ -1,6 +1,6 @@
 use regex::Regex;
 
-const RE_SYMBOL: Regex = Regex::new(r"[^(\d|\\.)]").expect("");
+const RE_SYMBOL: Regex = Regex::new(r"[^(\d|\\.)]").unwrap();
 
 fn main() {
     let re = Regex::new(r"\d+").unwrap();
