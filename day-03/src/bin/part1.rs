@@ -57,5 +57,5 @@ fn check_symbol(c: Option<char>) -> bool {
     if let Some(c) = c {
         return RE_SYMBOL.is_match(&c.to_string());
     }
-    return false;
+    return false
 }
