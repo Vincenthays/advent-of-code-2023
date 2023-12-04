@@ -1,5 +1,3 @@
-#![feature(let_chains)]
-
 use regex::Regex;
 
 fn main() {
