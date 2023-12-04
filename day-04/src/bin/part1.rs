@@ -4,7 +4,7 @@ fn main() {
     let re = Regex::new(r"\s+").unwrap();
 
     let sum =
-        include_str!("input_test.txt")
+        include_str!("input.txt")
         .lines()
         .map(|l| {
             let (_, l) = l.split_once(": ").unwrap();
@@ -13,15 +13,10 @@ fn main() {
             let winning = re.split(winning.trim()).map(|n| n.parse().unwrap()).collect::<Vec<u32>>();
             let have = re.split(have.trim()).map(|n| n.parse().unwrap()).collect::<Vec<u32>>();
 
-            let filter = have
-                .clone()
+            have
                 .into_iter()
                 .filter_map(|n| if winning.contains(&n) { Some(n) } else { None })
-                .collect::<Vec<u32>>();
-
-            println!("{winning:?} {have:?} {filter:?}");
-
-            1
+                .fold(0, |acc, n| if acc == 0 { 1 } else { acc * 2 })
         })
         .sum::<u32>();
 
