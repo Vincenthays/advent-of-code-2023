@@ -6,7 +6,7 @@ fn main() {
     let re = Regex::new(r"\s+").unwrap();
 
     let count_winning =
-        include_str!("input_test.txt")
+        include_str!("input.txt")
         .lines()
         .map(|l| {
             let (_, l) = l.split_once(": ").unwrap();
