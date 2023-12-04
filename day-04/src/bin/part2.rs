@@ -36,10 +36,8 @@ fn main() {
 fn line_score(count_winning: &Vec<u32>, res: &mut Vec<u64>, i: usize) {
     if let Some(&count) = count_winning.get(i) {
         res[i] += 1;
-        if count > 0 {
-            for j in i+1..i+1+count as usize {
-                line_score(count_winning, res, j)
-            }
+        for j in i+1..i+1+count as usize {
+            line_score(count_winning, res, j)
         }
     }
 }
