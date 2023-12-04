@@ -33,7 +33,8 @@ fn main() {
 fn line_score(winning_count: &Vec<(u8, u64)>, i: u32) -> u64 {
     match winning_count.get(i as usize) {
         Some(&(count, score)) if count > 0 => {
-            score + (i+1 .. i+count as u32)
+            println!("{count} i={i}: {}..<{} => {score}", i+1, count as u32+i+1);
+            score + (i+1 .. i+1+count as u32)
                 .map(|j| line_score(&winning_count, j))
                 .sum::<u64>()
         },
