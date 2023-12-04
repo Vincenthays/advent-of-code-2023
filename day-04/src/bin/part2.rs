@@ -27,14 +27,14 @@ fn main() {
         .map(|i| line_score(&winning_count, i))
         .collect::<Vec<_>>();
 
-    println!("{winning_count:?} {scores:?}");
+    println!("{winning_count:?}\n{scores:?}");
 }
 
 fn line_score(winning_count: &Vec<(u8, u64)>, i: u32) -> u64 {
     match winning_count.get(i as usize) {
         Some(&(count, score)) if count > 0 => {
-            score + (1..1 + count as u32)
-                .map(|j| line_score(&winning_count, i+j))
+            score + (i+1 .. i+count as u32)
+                .map(|j| line_score(&winning_count, j))
                 .sum::<u64>()
         },
         _ => 0
