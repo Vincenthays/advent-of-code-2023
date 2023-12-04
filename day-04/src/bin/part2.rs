@@ -18,9 +18,25 @@ fn main() {
                 .filter_map(|n| if winning.contains(&n) { Some(n) } else { None })
                 .count();
 
-            (winning_count, (0..winning_count).fold(0, |acc, _| if acc == 0 { 1 } else { acc * 2 }))
+            (winning_count as u8,
+             (0..winning_count).fold(0, |acc, _| if acc == 0 { 1 } else { acc * 2 }) as u64)
         })
         .collect::<Vec<_>>();
 
     println!("{winning_count:?}");
+
+    let sum = (0..winning_count.len() as u32)
+        .map(|i| line_score(&winning_count, i))
+        .sum::<u64>();
+
+    println!("{winning_count:?}, {sum}");
+}
+
+fn line_score(winning_count: &Vec<(u8, u64)>, i: u32) -> u64 {
+    if let Some(&(count, score)) = winning_count.get(i as usize) {
+        return score + (0..count+1)
+            .map(|j| line_score(&winning_count, i+j as u32))
+            .sum::<u64>()
+    }
+    return 0
 }
