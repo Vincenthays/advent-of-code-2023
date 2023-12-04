@@ -33,10 +33,10 @@ fn main() {
 }
 
 fn line_score(winning_count: &Vec<(u8, u64)>, i: u32) -> u64 {
-    if let Some(&(count, score)) = winning_count.get(i as usize) {
-        return score + (0..count+1)
+    match winning_count.get(i as usize) {
+        Some(&(count, score)) if count > 0 => score + (0..count+1)
             .map(|j| line_score(&winning_count, i+j as u32))
-            .sum::<u64>()
+            .sum::<u64>(),
+        _ => 0
     }
-    return 0
 }
