@@ -16,7 +16,7 @@ fn main() {
             have
                 .into_iter()
                 .filter_map(|n| if winning.contains(&n) { Some(n) } else { None })
-                .fold(0, |acc, n| if acc == 0 { 1 } else { acc * 2 })
+                .fold(0, |acc, _| if acc == 0 { 1 } else { acc * 2 })
         })
         .sum::<u32>();
 
