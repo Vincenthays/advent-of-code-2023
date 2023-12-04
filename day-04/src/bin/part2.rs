@@ -18,8 +18,7 @@ fn main() {
                 .filter_map(|n| if winning.contains(&n) { Some(n) } else { None })
                 .count();
 
-            (winning_count,
-             (0..winning_count).fold(0, |acc, _| if acc == 0 { 1 } else { acc * 2 }))
+            (winning_count, (0..winning_count).fold(0, |acc, _| if acc == 0 { 1 } else { acc * 2 }))
         })
         .collect::<Vec<_>>();
 
