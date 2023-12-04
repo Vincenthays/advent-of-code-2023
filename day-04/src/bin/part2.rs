@@ -23,18 +23,18 @@ fn main() {
         })
         .collect::<Vec<_>>();
 
-    let sum = (0..winning_count.len() as u32)
+    let scores = (0..winning_count.len() as u32)
         .map(|i| line_score(&winning_count, i))
-        .sum::<u64>();
+        .collect::<Vec<_>>();
 
-    println!("{winning_count:?} {sum}");
+    println!("{winning_count:?} {scores:?}");
 }
 
 fn line_score(winning_count: &Vec<(u8, u64)>, i: u32) -> u64 {
     match winning_count.get(i as usize) {
         Some(&(count, score)) if count > 0 => {
-            score + (1..count+1)
-                .map(|j| line_score(&winning_count, i+j as u32))
+            score + (1..1 + count as u32)
+                .map(|j| line_score(&winning_count, i+j))
                 .sum::<u64>()
         },
         _ => 0
