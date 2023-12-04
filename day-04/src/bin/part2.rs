@@ -1,9 +1,11 @@
+#![feature(let_chains)]
+
 use regex::Regex;
 
 fn main() {
     let re = Regex::new(r"\s+").unwrap();
 
-    let winning_count =
+    let count_winning =
         include_str!("input_test.txt")
         .lines()
         .map(|l| {
@@ -13,31 +15,31 @@ fn main() {
             let winning = re.split(winning.trim()).map(|n| n.parse().unwrap()).collect::<Vec<u32>>();
             let have = re.split(have.trim()).map(|n| n.parse().unwrap()).collect::<Vec<u32>>();
 
-            let winning_count = have
+            have
                 .into_iter()
                 .filter_map(|n| if winning.contains(&n) { Some(n) } else { None })
-                .count();
-
-            (winning_count as u8,
-             (0..winning_count).fold(0, |acc, _| if acc == 0 { 1 } else { acc * 2 }) as u64)
+                .count() as u32
         })
         .collect::<Vec<_>>();
 
-    let scores = (0..winning_count.len() as u32)
-        .map(|i| line_score(&winning_count, i))
-        .collect::<Vec<_>>();
+    let res = (0..count_winning.len())
+        .fold(vec![0; count_winning.len()], |mut acc, i| {
+            line_score(&count_winning, &mut acc, i);
+            acc
+        })
+        .into_iter()
+        .sum::<u64>();
 
-    println!("{winning_count:?}\n{scores:?}");
+    println!("{res}");
 }
 
-fn line_score(winning_count: &Vec<(u8, u64)>, i: u32) -> u64 {
-    match winning_count.get(i as usize) {
-        Some(&(count, score)) if count > 0 => {
-            println!("{count} i={i}: {}..<{} => {score}", i+1, count as u32+i+1);
-            score + (i+1 .. i+1+count as u32)
-                .map(|j| line_score(&winning_count, j))
-                .sum::<u64>()
-        },
-        _ => 0
+fn line_score(count_winning: &Vec<u32>, res: &mut Vec<u64>, i: usize) {
+    if let Some(&count) = count_winning.get(i) {
+        res[i] += 1;
+        if count > 0 {
+            for j in i+1..i+1+count as usize {
+                line_score(count_winning, res, j)
+            }
+        }
     }
 }
