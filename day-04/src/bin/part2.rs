@@ -28,11 +28,10 @@ fn main() {
 }
 
 fn line_score(count_winning: &Vec<u32>, i: u32) -> u32 {
-    if let Some(&count) = count_winning.get(i as usize) {
-        1 + (i+1..i+1+count)
+    match count_winning.get(i as usize) {
+        Some(&count) => 1 + (i+1..i+1+count)
             .map(|j| line_score(count_winning, j))
-            .sum::<u32>()
-    } else {
-        0
+            .sum::<u32>(),
+        _ => 0
     }
 }
