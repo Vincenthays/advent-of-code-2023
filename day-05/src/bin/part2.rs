@@ -1,5 +1,4 @@
 #![feature(iter_array_chunks)]
-
 use rayon::prelude::*;
 
 fn main() {
