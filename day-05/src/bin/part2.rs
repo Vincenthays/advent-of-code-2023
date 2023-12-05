@@ -14,10 +14,7 @@ fn main() {
         .split_whitespace()
         .map(|s| s.parse().unwrap())
         .array_chunks::<2>()
-        .flat_map(|[start, len]| {
-            (0..len).map(|i| start+i)
-                .collect::<Vec<_>>()
-        })
+        .flat_map(|[start, len]| (0..len).map(move |i| start+i))
         .collect::<Vec<u32>>();
 
     let maps = input
