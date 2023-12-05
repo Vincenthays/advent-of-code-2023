@@ -1,5 +1,3 @@
-use rayon::prelude::*;
-
 fn main() {
     let mut input = include_str!("input.txt")
         .split("\n\n");
@@ -33,7 +31,7 @@ fn main() {
     println!("{seeds:?} {maps:?}");
 
     let min_location = seeds
-        .into_par_iter()
+        .into_iter()
         .map(|s| get_location(&maps, s, 0))
         .min()
         .unwrap();
