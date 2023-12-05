@@ -21,21 +21,17 @@ fn main() {
         .collect::<Vec<_>>();
 
     let res = (0..count_winning.len())
-        .fold(vec![0; count_winning.len()], |mut acc, i| {
-            line_score(&count_winning, &mut acc, i);
-            acc
-        })
-        .into_iter()
-        .sum::<u64>();
+        .fold(0, |acc, i| acc + line_score(&count_winning, i));
 
     println!("{res}");
 }
 
-fn line_score(count_winning: &Vec<u32>, res: &mut Vec<u64>, i: usize) {
+fn line_score(count_winning: &Vec<u32>, i: usize) -> u64 {
     if let Some(&count) = count_winning.get(i) {
-        res[i] += 1;
-        for j in i+1..i+1+count as usize {
-            line_score(count_winning, res, j)
-        }
+        1 + (i+1..i+1+count as usize)
+            .map(|j| line_score(count_winning, j))
+            .sum::<u64>()
+    } else {
+        0
     }
 }
