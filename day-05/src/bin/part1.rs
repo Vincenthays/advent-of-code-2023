@@ -1,5 +1,7 @@
+use rayon::prelude::*;
+
 fn main() {
-    let mut input = include_str!("input_test.txt")
+    let mut input = include_str!("input.txt")
         .split("\n\n");
 
     let seeds = input
@@ -31,9 +33,9 @@ fn main() {
     println!("{seeds:?} {maps:?}");
 
     let min_location = seeds
-        .into_iter()
+        .into_par_iter()
         .map(|s| get_location(&maps, s, 0))
-        .collect::<Vec<_>>();
+        .min();
 
     println!("{min_location:?}");
 }
