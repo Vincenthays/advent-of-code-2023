@@ -33,7 +33,7 @@ fn main() {
     println!("{seeds:?} {maps:?}");
 
     let min_location = seeds
-        .into_iter()
+        .into_par_iter()
         .map(|s| get_location(&maps, s, 0))
         .min();
 
