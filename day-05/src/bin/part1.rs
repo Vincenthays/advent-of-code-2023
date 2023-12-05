@@ -1,7 +1,7 @@
 use rayon::prelude::*;
 
 fn main() {
-    let mut input = include_str!("input.txt")
+    let mut input = include_str!("input_test.txt")
         .split("\n\n");
 
     let seeds = input
@@ -39,14 +39,15 @@ fn main() {
 
     println!("{min_location:?}");
 }
+// 7961058 too low
 
 fn get_location(maps: &Vec<Vec<(u32, u32, u32)>>, input: u32, i: usize) -> u32 {
     match maps.get(i) {
         Some(map) => {
             for &(value, start, len) in map {
-                for i in 0..len {
-                    if i + start == input {
-                        return i + value
+                for j in 0..len {
+                    if j + start == input {
+                        return j + value
                     }
                 }
             }
