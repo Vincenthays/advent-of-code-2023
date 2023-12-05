@@ -21,7 +21,8 @@ fn main() {
         .collect::<Vec<_>>();
 
     let res = (0..count_winning.len())
-        .fold(0, |acc, i| acc + line_score(&count_winning, i));
+        .map(|i| line_score(&count_winning, i))
+        .sum::<u64>();
 
     println!("{res}");
 }
