@@ -22,16 +22,16 @@ fn main() {
 
     let res = (0..count_winning.len())
         .map(|i| line_score(&count_winning, i))
-        .sum::<u64>();
+        .sum::<u32>();
 
     println!("{res}");
 }
 
-fn line_score(count_winning: &Vec<u32>, i: usize) -> u64 {
+fn line_score(count_winning: &Vec<u32>, i: usize) -> u32 {
     if let Some(&count) = count_winning.get(i) {
         1 + (i+1..i+1+count as usize)
             .map(|j| line_score(count_winning, j))
-            .sum::<u64>()
+            .sum::<u32>()
     } else {
         0
     }
