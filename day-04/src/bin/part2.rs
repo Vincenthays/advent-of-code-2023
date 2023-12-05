@@ -20,16 +20,16 @@ fn main() {
         })
         .collect::<Vec<_>>();
 
-    let res = (0..count_winning.len())
+    let res = (0..count_winning.len() as u32)
         .map(|i| line_score(&count_winning, i))
         .sum::<u32>();
 
     println!("{res}");
 }
 
-fn line_score(count_winning: &Vec<u32>, i: usize) -> u32 {
-    if let Some(&count) = count_winning.get(i) {
-        1 + (i+1..i+1+count as usize)
+fn line_score(count_winning: &Vec<u32>, i: u32) -> u32 {
+    if let Some(&count) = count_winning.get(i as usize) {
+        1 + (i+1..i+1+count)
             .map(|j| line_score(count_winning, j))
             .sum::<u32>()
     } else {
