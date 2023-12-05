@@ -33,7 +33,7 @@ fn main() {
     println!("{seeds:?} {maps:?}");
 
     let min_location = seeds
-        .into_par_iter()
+        .into_iter()
         .map(|s| get_location(&maps, s, 0))
         .min();
 
@@ -47,11 +47,11 @@ fn get_location(maps: &Vec<Vec<(u32, u32, u32)>>, input: u32, i: usize) -> u32 {
             for &(value, start, len) in map {
                 for j in 0..len {
                     if j + start == input {
-                        return j + value
+                        return get_location(&maps, j + value, i+1)
                     }
                 }
             }
-            input
+            get_location(&maps, input, i+1)
         },
         _ => input
     }
