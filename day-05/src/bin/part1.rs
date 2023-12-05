@@ -29,7 +29,15 @@ fn main() {
         .map(expand_map)
         .collect::<Vec<_>>();
 
-    println!("{seeds:?} {maps:?}");
+    // println!("{seeds:?} {maps:?}");
+
+    let min_location = seeds
+        .into_iter()
+        .map(|s| get_location(&maps, s, 0))
+        .min()
+        .unwrap();
+
+    println!("{min_location:?}");
 }
 
 fn expand_map(maps: Vec<Vec<u32>>) -> HashMap<u32, u32> {
@@ -39,4 +47,11 @@ fn expand_map(maps: Vec<Vec<u32>>) -> HashMap<u32, u32> {
         acc.extend((0..len).map(|i| (start+i, value+i)));
         acc
     })
+}
+
+fn get_location(maps: &Vec<HashMap<u32, u32>>, input: u32, i: usize) -> u32 {
+    match maps.get(i) {
+        Some(map) => get_location(maps, map[&input], i+1),
+        _ => input
+    }
 }
