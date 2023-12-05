@@ -14,7 +14,8 @@ fn main() {
         .map(|s| s.parse().unwrap())
         .collect::<Vec<u32>>();
 
-    let maps = input.map(|m| m
+    let maps = input
+        .map(|m| m
             .split_once(":\n")
             .unwrap()
             .1
@@ -29,7 +30,7 @@ fn main() {
         .map(expand_map)
         .collect::<Vec<_>>();
 
-    // println!("{seeds:?} {maps:?}");
+    println!("{seeds:?} {maps:?}");
 
     let min_location = seeds
         .into_iter()
