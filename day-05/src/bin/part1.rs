@@ -40,7 +40,6 @@ fn main() {
 
     println!("{min_location}");
 }
-// 7961058 too low
 
 fn get_location(maps: &Vec<Vec<(u32, u32, u32)>>, input: u32, i: usize) -> u32 {
     match maps.get(i) {
