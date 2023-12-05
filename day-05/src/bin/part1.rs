@@ -1,7 +1,7 @@
 use rayon::prelude::*;
 
 fn main() {
-    let mut input = include_str!("input_test.txt")
+    let mut input = include_str!("input.txt")
         .split("\n\n");
 
     let seeds = input
@@ -35,9 +35,10 @@ fn main() {
     let min_location = seeds
         .into_par_iter()
         .map(|s| get_location(&maps, s, 0))
-        .min();
+        .min()
+        .unwrap();
 
-    println!("{min_location:?}");
+    println!("{min_location}");
 }
 // 7961058 too low
 
