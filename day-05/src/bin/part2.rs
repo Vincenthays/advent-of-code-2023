@@ -1,3 +1,5 @@
+#![feature(iter_array_chunks)]
+
 use rayon::prelude::*;
 
 fn main() {
@@ -12,7 +14,14 @@ fn main() {
         .1
         .split_whitespace()
         .map(|s| s.parse().unwrap())
+        .array_chunks::<2>()
+        .flat_map(|[start, len]| {
+            (0..len).map(|i| start+i)
+                .collect::<Vec<_>>()
+        })
         .collect::<Vec<u32>>();
+
+    println!("{seeds:?}");
 
     let maps = input
         .map(|m| m
