@@ -39,8 +39,6 @@ fn main() {
         )
         .collect::<Vec<_>>();
 
-    println!("{seeds:?} {maps:?}");
-
     let min_location = seeds
         .into_par_iter()
         .map(|s| get_location(&maps, s, 0))
