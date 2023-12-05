@@ -21,8 +21,6 @@ fn main() {
         })
         .collect::<Vec<u32>>();
 
-    println!("{seeds:?}");
-
     let maps = input
         .map(|m| m
             .split_once(":\n")
