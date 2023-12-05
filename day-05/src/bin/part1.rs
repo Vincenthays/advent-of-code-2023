@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 fn main() {
-    let mut input = include_str!("input_test.txt")
+    let mut input = include_str!("input.txt")
         .split("\n\n");
 
     let seeds = input
