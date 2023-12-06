@@ -1,5 +1,4 @@
 #![feature(iter_next_chunk)]
-
 use regex::Regex;
 
 fn main() {
