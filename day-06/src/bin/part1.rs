@@ -15,4 +15,21 @@ fn main() {
         .unwrap();
 
     println!("t={time:?} d={distance:?}");
+
+    let res = time
+        .into_iter()
+        .zip(distance)
+        .map(|(t, d)| get_count_winning(t, d))
+        .fold(1, |acc, x| acc * x);
+
+    println!("{res}");
+}
+
+fn get_count_winning(t: u32, d: u32) -> u32 {
+    (1..t)
+        .filter_map(|x| match x * t - x * x {
+            res if res > d => Some(x),
+            _ => None
+        })
+        .count() as u32
 }
