@@ -4,7 +4,8 @@ use regex::Regex;
 
 fn main() {
     let re = Regex::new(r"\s+").unwrap();
-    let [time, distance] = include_str!("input_test.txt")
+    let [time, distance] =
+        include_str!("input_test.txt")
         .split('\n')
         .map(|l|
             re.split(l)
