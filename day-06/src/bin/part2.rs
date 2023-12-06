@@ -1,59 +1,32 @@
-#![feature(iter_array_chunks)]
-use rayon::prelude::*;
+#![feature(iter_next_chunk)]
 
 fn main() {
-    let mut input = include_str!("input.txt")
-        .split("\n\n");
-
-    let seeds = input
-        .next()
-        .unwrap()
-        .split_once(": ")
-        .unwrap()
-        .1
-        .split_whitespace()
-        .map(|s| s.parse().unwrap())
-        .array_chunks::<2>()
-        .flat_map(|[start, len]| start..start+len)
-        .collect::<Vec<u32>>();
-
-    let maps = input
-        .map(|m| m
-            .split_once(":\n")
-            .unwrap()
-            .1
+    let [time, distance] =
+        include_str!("input.txt")
             .split('\n')
             .map(|l| l
-                .split_whitespace()
-                .map(|n| n.parse().unwrap())
-                .collect::<Vec<u32>>()
+                .split_once(':')
+                .unwrap()
+                .1
+                .replace(' ', "")
+                .parse::<u64>()
+                .unwrap()
             )
-            .map(|l| (l[0], l[1], l[2]))
-            .collect::<Vec<_>>()
-        )
-        .collect::<Vec<_>>();
+            .next_chunk::<2>()
+            .unwrap();
 
-    let min_location = seeds
-        .into_par_iter()
-        .map(|s| get_location(&maps, s, 0))
-        .min()
-        .unwrap();
+    println!("t={time:?} d={distance:?}");
 
-    println!("{min_location}");
+    let res = get_count_winning(time, distance);
+
+    println!("{res}");
 }
 
-fn get_location(maps: &Vec<Vec<(u32, u32, u32)>>, input: u32, i: usize) -> u32 {
-    match maps.get(i) {
-        Some(map) => {
-            for &(value, start, len) in map {
-                for j in 0..len {
-                    if j + start == input {
-                        return get_location(&maps, j + value, i+1);
-                    }
-                }
-            }
-            get_location(&maps, input, i+1)
-        },
-        _ => input
-    }
+fn get_count_winning(t: u64, d: u64) -> u64 {
+    (1..t)
+        .filter_map(|x| match x * t - x * x {
+            res if res > d => Some(x),
+            _ => None
+        })
+        .count() as u64
 }
