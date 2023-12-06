@@ -27,9 +27,6 @@ fn main() {
 
 fn get_count_winning(t: u32, d: u32) -> u32 {
     (1..t)
-        .filter_map(|x| match x * t - x * x {
-            res if res > d => Some(x),
-            _ => None
-        })
+        .filter_map(|x| if x * t - x * x > d { Some(x) } else { None })
         .count() as u32
 }
