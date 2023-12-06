@@ -1,7 +1,9 @@
 use rayon::prelude::*;
 
 fn main() {
-    include_str!("input.txt")
+    let input = include_str!("input_test.txt")
+        .split_once('\n')
+        .unwrap();
 
-
+    println!("{time} {distance}");
 }
