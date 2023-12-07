@@ -42,13 +42,8 @@ fn main() {
                     let c1 = LETTER_ORDER.iter().position(|c| *c == c1).unwrap();
                     let c2 = LETTER_ORDER.iter().position(|c| *c == c2).unwrap();
 
-                    if c1 == c2 {
-                        continue
-                    } else if c1 < c2 {
-                        return Ordering::Greater;
-                    } else {
-                        return Ordering::Less;
-                    }
+                    if c1 == c2 { continue }
+                    return if c1 < c2 { Ordering::Greater } else { Ordering::Less }
                 }
                 return Ordering::Equal;
             },
