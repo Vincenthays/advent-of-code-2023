@@ -44,7 +44,7 @@ fn main() {
                     if c1 == c2 { continue }
                     return if c1 < c2 { Ordering::Greater } else { Ordering::Less }
                 }
-                return Ordering::Equal;
+                Ordering::Equal
             },
             o => o
         }
