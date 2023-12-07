@@ -35,7 +35,8 @@ fn main() {
         match score1.cmp(score2) {
             Ordering::Equal => cards2.cmp(cards1),
             o => o
-        });
+        }
+    );
 
     let res = input
         .iter()
