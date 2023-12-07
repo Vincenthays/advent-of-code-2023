@@ -31,9 +31,9 @@ fn main() {
                 x => { *values.last_mut().unwrap() += x }
             }
 
-            (values, cards, bid.trim().parse::<u32>().unwrap())
+            (values, nb_joker, cards, bid.trim().parse::<u32>().unwrap())
         })
-        .map(|(values, cards, bid)| {
+        .map(|(values, nb_joker, cards, bid)| {
             let score = if values.contains(&5) { 6 }
             else if values.contains(&4) { 5 }
             else if values[..] == [2, 3] { 4 }
@@ -42,13 +42,19 @@ fn main() {
             else if values.contains(&2) { 1 }
             else { 0 };
 
-            (score, cards, bid)
+            (score, nb_joker, cards, bid)
         })
         .collect::<Vec<_>>();
 
-    input.sort_by(|(score1, cards1, _), (score2, cards2, _)|
+    input.sort_by(|(score1, nb_joker1, cards1, _), (score2, nb_joker2, cards2, _)|
         match score1.cmp(score2) {
             Ordering::Equal => {
+                if nb_joker1 < nb_joker2 {
+                    return Ordering::Greater;
+                } else if nb_joker1 > nb_joker2 {
+                    return Ordering::Less;
+                }
+
                 for (c1, c2) in cards1.chars().zip(cards2.chars()) {
                     let c1 = LETTER_ORDER.iter().position(|c| *c == c1).unwrap();
                     let c2 = LETTER_ORDER.iter().position(|c| *c == c2).unwrap();
@@ -65,10 +71,11 @@ fn main() {
     let res = input
         .iter()
         .enumerate()
-        .map(|(i, (_, _, bid))| bid * (i as u32 +1))
+        .map(|(i, (_, _, _, bid))| bid * (i as u32 +1))
         .sum::<u32>();
 
     println!("{input:?}\n{res}");
 }
 
 // 248618050 to low
+// 248751336 to high
