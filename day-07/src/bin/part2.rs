@@ -19,12 +19,13 @@ fn main() {
                 .collect::<Vec<u32>>();
 
             values.sort();
-            let nb_jocker = cards
+
+            let nb_joker = cards
                 .chars()
                 .filter_map(|c| if c == 'J' { Some(c) } else { None })
                 .count() as u32;
 
-            match nb_jocker {
+            match nb_joker {
                 0 => {},
                 5 => { values = vec![5] }
                 x => { *values.last_mut().unwrap() += x }
