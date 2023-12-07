@@ -44,6 +44,5 @@ fn main() {
         .map(|(i, (_, _, bid))| bid * (i as u32 +1))
         .sum::<u32>();
 
-
     println!("{input:?}\n{res}");
 }
