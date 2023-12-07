@@ -4,12 +4,13 @@ use std::collections::HashMap;
 const LETTER_ORDER: [char; 14] = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2', 'J'];
 
 fn main() {
-    let mut input = include_str!("input.txt")
+    let mut input = include_str!("input_test.txt")
         .lines()
         .map(|l| {
             let (cards, bid) = l.split_once(' ').unwrap();
             let mut values = cards
                 .chars()
+                .filter_map(|c| if c == 'J' { None } else { Some(c) })
                 .fold(HashMap::new(), |mut acc, x| {
                     *acc.entry(x).or_insert(0) += 1;
                     acc
@@ -18,6 +19,10 @@ fn main() {
                 .collect::<Vec<u32>>();
 
             values.sort();
+            *values.last_mut().unwrap() += cards
+                .chars()
+                .filter_map(|c| if c == 'J' { Some(c) } else { None })
+                .count() as u32;
 
             (values, cards, bid.trim().parse::<u32>().unwrap())
         })
