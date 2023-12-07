@@ -4,7 +4,7 @@ use std::collections::HashMap;
 const LETTER_ORDER: [char; 14] = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2', 'J'];
 
 fn main() {
-    let mut input = include_str!("input_test.txt")
+    let mut input = include_str!("input.txt")
         .lines()
         .map(|l| {
             let (cards, bid) = l.split_once(' ').unwrap();
@@ -19,10 +19,16 @@ fn main() {
                 .collect::<Vec<u32>>();
 
             values.sort();
-            *values.last_mut().unwrap() += cards
+            let nb_jocker = cards
                 .chars()
                 .filter_map(|c| if c == 'J' { Some(c) } else { None })
                 .count() as u32;
+
+            match nb_jocker {
+                0 => {},
+                5 => { values = vec![5] }
+                x => { *values.last_mut().unwrap() += x }
+            }
 
             (values, cards, bid.trim().parse::<u32>().unwrap())
         })
@@ -63,3 +69,5 @@ fn main() {
 
     println!("{input:?}\n{res}");
 }
+
+// 248618050 to low
