@@ -20,8 +20,9 @@ fn main() {
             (values, cards, bid.trim().parse::<u32>().unwrap())
         })
         .map(|(values, cards, bid)| {
-            let score = if values.contains(&5) { 5 }
-                else if values.contains(&4) { 4 }
+            let score = if values.contains(&5) { 6 }
+                else if values.contains(&4) { 5 }
+                else if values[..] == [2, 3] { 4 }
                 else if values.contains(&3) { 3 }
                 else if values[..] == [1, 2, 2] { 2 }
                 else if values.contains(&2) { 1 }
@@ -46,3 +47,6 @@ fn main() {
 
     println!("{input:?}\n{res}");
 }
+
+// x < 249,657,938
+// 249,906,632
