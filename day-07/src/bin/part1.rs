@@ -31,12 +31,11 @@ fn main() {
         })
         .collect::<Vec<_>>();
 
-    input.sort_by(|(score1, cards1, _), (score2, cards2, _)| {
+    input.sort_by(|(score1, cards1, _), (score2, cards2, _)|
         match score1.cmp(score2) {
             Ordering::Equal => cards2.cmp(cards1),
             o => o
-        }
-    });
+        });
 
     let res = input
         .iter()
