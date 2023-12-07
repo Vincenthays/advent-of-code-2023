@@ -1,8 +1,11 @@
 use std::cmp::Ordering;
 use std::collections::HashMap;
+use std::ops::Index;
+
+const LETTER_ORDER: [char; 13] = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'];
 
 fn main() {
-    let mut input = include_str!("input_test.txt")
+    let mut input = include_str!("input.txt")
         .lines()
         .map(|l| {
             let (cards, bid) = l.split_once(' ').unwrap();
@@ -34,7 +37,21 @@ fn main() {
 
     input.sort_by(|(score1, cards1, _), (score2, cards2, _)|
         match score1.cmp(score2) {
-            Ordering::Equal => cards2.cmp(cards1),
+            Ordering::Equal => {
+                for (c1, c2) in cards1.chars().zip(cards2.chars()) {
+                    let c1 = LETTER_ORDER.iter().position(|c| *c == c1).unwrap();
+                    let c2 = LETTER_ORDER.iter().position(|c| *c == c2).unwrap();
+
+                    if c1 == c2 {
+                        continue
+                    } else if c1 < c2 {
+                        return Ordering::Greater;
+                    } else {
+                        return Ordering::Less;
+                    }
+                }
+                return Ordering::Equal;
+            },
             o => o
         }
     );
@@ -47,6 +64,3 @@ fn main() {
 
     println!("{input:?}\n{res}");
 }
-
-// x < 249,657,938
-// 249,906,632
