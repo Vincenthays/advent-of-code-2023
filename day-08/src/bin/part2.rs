@@ -31,7 +31,7 @@ fn get_step_count<'a>(instructions: Vec<char>, network: HashMap<&str, (&'a str, 
     let mut count = 0;
     for i in instructions.iter().cycle() {
         count += 1;
-        for mut n in starts.iter_mut() {
+        for n in starts.iter_mut() {
             *n = match i {
                 'L' => network[n].0,
                 'R' => network[n].1,
