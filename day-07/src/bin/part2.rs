@@ -31,7 +31,7 @@ fn main() {
         .collect::<Vec<_>>();
 
     input.sort_by(|(score1, cards1, _), (score2, cards2, _)|
-        match get_ordering(score1, score2) {
+        match score1.cmp(score2) {
             Ordering::Equal => get_ordering_cards(cards1, cards2),
             order => order,
         });
@@ -45,6 +45,7 @@ fn main() {
         .sum::<u32>();
 
     println!("{res}");
+    println!("{:?}", get_ordering_cards("T55J5", "QQQJA"));
 }
 
 fn get_score(mut values: Vec<u32>) -> u32 {
@@ -63,12 +64,6 @@ fn get_score(mut values: Vec<u32>) -> u32 {
     }
 }
 
-fn get_ordering(score1: &u32, score2: &u32) -> Ordering {
-    if score1 < score2 { Ordering::Greater }
-    else if score1 > score2 { Ordering::Less }
-    else { Ordering::Equal }
-}
-
 fn get_ordering_cards(cards1: &str, cards2: &str) -> Ordering {
     for (c1, c2) in cards1.chars().zip(cards2.chars()) {
         if c1 == c2 { continue }
@@ -76,7 +71,7 @@ fn get_ordering_cards(cards1: &str, cards2: &str) -> Ordering {
         let c1 = LETTER_ORDER.iter().position(|&c| c == c1).unwrap();
         let c2 = LETTER_ORDER.iter().position(|&c| c == c2).unwrap();
 
-        return if c1 < c2 { Ordering::Greater } else { Ordering::Less }
+        return c1.cmp(&c2).reverse()
     }
     Ordering::Equal
 }
