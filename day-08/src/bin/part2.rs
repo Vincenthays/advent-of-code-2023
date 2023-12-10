@@ -31,11 +31,13 @@ fn get_step_count<'a>(instructions: Vec<char>, network: HashMap<&str, (&'a str, 
     let mut count = 0;
     for i in instructions.iter().cycle() {
         count += 1;
-        starts = starts.into_iter().map(|n| match i {
-            'L' => network[n].0,
-            'R' => network[n].1,
-            _ => panic!("No found {n}"),
-        }).collect::<Vec<_>>();
+        for mut n in starts.iter_mut() {
+            *n = match i {
+                'L' => network[n].0,
+                'R' => network[n].1,
+                _ => panic!("No found {n}"),
+            }
+        }
 
         if starts.iter().all(|n| n.ends_with('Z')) {
             return count
