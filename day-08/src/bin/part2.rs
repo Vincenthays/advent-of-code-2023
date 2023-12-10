@@ -2,7 +2,7 @@ use regex::Regex;
 use std::collections::HashMap;
 
 fn main() {
-    let re = Regex::new(r#"[A-Z\d]{3}"#).unwrap();
+    let re = Regex::new(r"[A-Z\d]{3}").unwrap();
     let mut input = include_str!("input.txt").lines().filter(|&l| l != "");
 
     let instructions = input.next().unwrap().chars().collect::<Vec<_>>();
