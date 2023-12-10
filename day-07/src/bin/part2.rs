@@ -4,7 +4,7 @@ use std::collections::HashMap;
 const LETTER_ORDER: [char; 14] = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2', 'J'];
 
 fn main() {
-    let mut input = include_str!("input_test.txt")
+    let mut input = include_str!("input.txt")
         .lines()
         .map(|l| {
             let (cards, bid) = l.split_once(' ').unwrap();
@@ -45,7 +45,6 @@ fn main() {
         .sum::<u32>();
 
     println!("{res}");
-    println!("{:?}", get_ordering_cards("T55J5", "QQQJA"));
 }
 
 fn get_score(mut values: Vec<u32>) -> u32 {
@@ -77,4 +76,5 @@ fn get_ordering_cards(cards1: &str, cards2: &str) -> Ordering {
 }
 
 // 248,618,050 to low
+// 248,618,050
 // 248,751,336 to high
