@@ -71,8 +71,8 @@ fn get_ordering_cards(cards1: &str, cards2: &str) -> Ordering {
     for (c1, c2) in cards1.chars().zip(cards2.chars()) {
         if c1 == c2 { continue }
 
-        let c1 = LETTER_ORDER.iter().position(|c| *c == c1).unwrap();
-        let c2 = LETTER_ORDER.iter().position(|c| *c == c2).unwrap();
+        let c1 = LETTER_ORDER.iter().position(|&c| c == c1).unwrap();
+        let c2 = LETTER_ORDER.iter().position(|&c| c == c2).unwrap();
 
         return if c1 < c2 { Ordering::Greater } else { Ordering::Less }
     }
