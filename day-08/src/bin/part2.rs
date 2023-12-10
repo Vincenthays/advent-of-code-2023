@@ -14,8 +14,6 @@ fn main() {
         })
         .collect::<HashMap<_, _>>();
 
-
-
     let starts = network
         .keys()
         .copied()
