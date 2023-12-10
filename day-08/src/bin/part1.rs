@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use regex::Regex;
+use std::collections::HashMap;
 
 fn main() {
     let re = Regex::new(r#"[A-Z]{3}"#).unwrap();
@@ -10,9 +10,13 @@ fn main() {
         .filter(|&l| l != "")
         .map(|l| {
             let mut nodes = re.find_iter(l).map(|m| m.as_str());
-            (nodes.next().unwrap(), nodes.collect::<Vec<_>>())
+            (nodes.next().unwrap(), (nodes.next().unwrap(), nodes.next().unwrap()))
         })
-        .collect::<HashMap<_, Vec<_>>>();
+        .collect::<HashMap<_, _>>();
 
     println!("{instructions:?} {network:?}");
+}
+
+fn get_step_nb(instructions: Vec<char>, network: HashMap<&str, (&str, &str)>) -> u32 {
+    todo!()
 }
