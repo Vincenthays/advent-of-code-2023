@@ -14,25 +14,33 @@ fn main() {
         })
         .collect::<HashMap<_, _>>();
 
-    println!("{instructions:?} {network:?}");
 
-    let count = get_step_count(&instructions, &network);
+
+    let starts = network
+        .keys()
+        .copied()
+        .filter(|k| k.ends_with('A'))
+        .collect::<Vec<_>>();
+
+    println!("{instructions:?} {network:?} {starts:?}");
+
+    let count = get_step_count(instructions, network, starts);
 
     println!("{count}");
 }
 
-fn get_step_count(instructions: &Vec<char>, network: &HashMap<&str, (&str, &str)>) -> u32 {
+fn get_step_count<'a>(instructions: Vec<char>, network: HashMap<&str, (&'a str, &'a str)>, mut starts: Vec<&'a str>) -> u32 {
     let mut count = 0;
-    let mut node  = "AAA";
     for i in instructions.iter().cycle() {
         count += 1;
-        node = match i {
-            'L' => network[node].0,
-            'R' => network[node].1,
-            _ => panic!("No found {node}"),
-        };
-        if node == "ZZZ" {
-            return count;
+        starts = starts.into_iter().map(|n| match i {
+            'L' => network[n].0,
+            'R' => network[n].1,
+            _ => panic!("No found {n}"),
+        }).collect::<Vec<_>>();
+
+        if starts.iter().all(|n| n.ends_with('Z')) {
+            return count
         }
     }
     0
