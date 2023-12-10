@@ -3,7 +3,7 @@ use std::collections::HashMap;
 
 fn main() {
     let re = Regex::new(r#"[A-Z]{3}"#).unwrap();
-    let mut input = include_str!("input_test.txt").lines();
+    let mut input = include_str!("input.txt").lines();
 
     let instructions = input.next().unwrap().chars().collect::<Vec<_>>();
     let network = input
