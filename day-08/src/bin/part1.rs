@@ -15,8 +15,25 @@ fn main() {
         .collect::<HashMap<_, _>>();
 
     println!("{instructions:?} {network:?}");
+
+    let count = get_step_count(&instructions, &network);
+
+    println!("{count}");
 }
 
-fn get_step_nb(instructions: Vec<char>, network: HashMap<&str, (&str, &str)>) -> u32 {
-    todo!()
+fn get_step_count(instructions: &Vec<char>, network: &HashMap<&str, (&str, &str)>) -> u32 {
+    let mut count = 0;
+    let mut node  = "AAA";
+    for i in instructions.iter().cycle() {
+        count += 1;
+        node = match i {
+            'L' => network[node].0,
+            'R' => network[node].1,
+           _ => panic!("No found {node}"),
+        };
+        if node == "ZZZ" {
+            return count;
+        }
+    }
+    0
 }
