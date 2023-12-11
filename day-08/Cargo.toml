@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 rayon = { workspace = true }
 regex = { workspace = true }
+num = { workspace = true }
