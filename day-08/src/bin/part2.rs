@@ -16,7 +16,7 @@ fn main() {
     let steps_count = network
         .keys()
         .filter(|k| k.ends_with('A'))
-        .map(|n| get_step_count(&instructions, &network, n).unwrap())
+        .map(|n| get_step_count(&instructions, &network, n))
         .collect::<Vec<_>>();
 
     let res = steps_count
@@ -30,20 +30,21 @@ fn main() {
     println!("{instructions:?} {network:?} {steps_count:?} {res}");
 }
 
-fn get_step_count<'a>(instructions: &Vec<char>, network: &HashMap<&str, (&'a str, &'a str)>, mut node: &'a str) -> Option<u64> {
+fn get_step_count<'a>(instructions: &Vec<char>, network: &HashMap<&str, (&'a str, &'a str)>, mut node: &'a str) -> u64 {
     let mut count = 0;
-    for i in instructions.iter().cycle() {
+    let mut instruction = instructions.iter().cycle();
+
+    loop {
         count += 1;
-        node = match i {
+        node = match instruction.next().unwrap() {
             'L' => network[node].0,
             'R' => network[node].1,
-            _ => panic!("No found {node}"),
+            _ => panic!("No found instruction"),
         };
         if node.ends_with('Z') {
-            return Some(count);
+            return count;
         }
     }
-    None
 }
 
 fn lcm(first: u64, second: u64) -> u64 {
