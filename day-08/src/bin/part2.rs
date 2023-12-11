@@ -21,10 +21,10 @@ fn main() {
 
     let res = steps_count
         .iter()
-        .fold(None, |acc, &x| match acc {
-            None => Some(x),
-            Some(acc) => Some(lcm(acc, x))
-        })
+        .fold(None, |acc, &x| Some(match acc {
+            None => x,
+            Some(acc) => lcm(acc, x)
+        }))
         .unwrap();
 
     println!("{instructions:?} {network:?} {steps_count:?} {res}");
