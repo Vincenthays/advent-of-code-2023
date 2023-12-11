@@ -46,11 +46,7 @@ fn main() {
     println!("{res}");
 }
 
-fn get_score(mut values: Vec<u32>) -> u32 {
-    while values.iter().sum::<u32>() < 5 {
-        values.push(1);
-    }
-    values.sort();
+fn get_score(values: Vec<u32>) -> u32 {
     match values[..] {
         [5] => 6,
         [1, 4] => 5,
