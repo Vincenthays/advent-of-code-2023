@@ -54,9 +54,7 @@ fn gcd(first: u64, second: u64) -> u64 {
     let mut max = first;
     let mut min = second;
     if min > max {
-        let val = max;
-        max = min;
-        min = val;
+        (min, max) = (max, min);
     }
 
     loop {
@@ -64,7 +62,6 @@ fn gcd(first: u64, second: u64) -> u64 {
         if res == 0 {
             return min;
         }
-
         max = min;
         min = res;
     }
