@@ -21,7 +21,7 @@ fn main() {
     println!("{count}");
 }
 
-fn get_step_count<'a>(instructions: &Vec<char>, network: &HashMap<&str, (&'a str, &'a str)>, mut node: &'a str) -> u32 {
+fn get_step_count<'a>(instructions: &Vec<char>, network: &HashMap<&str, (&'a str, &'a str)>, mut node: &'a str) -> Option<u32> {
     let mut count = 0;
     for i in instructions.iter().cycle() {
         count += 1;
@@ -31,8 +31,8 @@ fn get_step_count<'a>(instructions: &Vec<char>, network: &HashMap<&str, (&'a str
            _ => panic!("No found {node}"),
         };
         if node == "ZZZ" {
-            return count;
+            return Some(count);
         }
     }
-    0
+    None
 }
