@@ -19,10 +19,18 @@ fn main() {
         .map(|n| get_step_count(&instructions, &network, n).unwrap())
         .collect::<Vec<_>>();
 
-    println!("{instructions:?} {network:?} {steps_count:?}");
+    let res = steps_count
+        .iter()
+        .fold(None, |acc, &x| match acc {
+            None => Some(x),
+            Some(acc) => Some(lcm(acc, x))
+        })
+        .unwrap();
+
+    println!("{instructions:?} {network:?} {steps_count:?} {res}");
 }
 
-fn get_step_count<'a>(instructions: &Vec<char>, network: &HashMap<&str, (&'a str, &'a str)>, mut node: &'a str) -> Option<u32> {
+fn get_step_count<'a>(instructions: &Vec<char>, network: &HashMap<&str, (&'a str, &'a str)>, mut node: &'a str) -> Option<u64> {
     let mut count = 0;
     for i in instructions.iter().cycle() {
         count += 1;
@@ -38,9 +46,26 @@ fn get_step_count<'a>(instructions: &Vec<char>, network: &HashMap<&str, (&'a str
     None
 }
 
-fn lcm(mut a: u32, b: u32) -> u32 {
-    while a % b != 0 {
-        a += b
+fn lcm(first: u64, second: u64) -> u64 {
+    first * second / gcd(first, second)
+}
+
+fn gcd(first: u64, second: u64) -> u64 {
+    let mut max = first;
+    let mut min = second;
+    if min > max {
+        let val = max;
+        max = min;
+        min = val;
     }
-    a
+
+    loop {
+        let res = max % min;
+        if res == 0 {
+            return min;
+        }
+
+        max = min;
+        min = res;
+    }
 }
