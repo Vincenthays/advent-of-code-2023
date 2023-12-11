@@ -41,7 +41,7 @@ fn main() {
     let res = input
         .into_iter()
         .enumerate()
-        .map(|(i, (_, _, bid))| bid * (i as u32 +1))
+        .map(|(i, (_, _, bid))| bid * (i as u32 + 1))
         .sum::<u32>();
 
     println!("{res}");
