@@ -37,3 +37,10 @@ fn get_step_count<'a>(instructions: &Vec<char>, network: &HashMap<&str, (&'a str
     }
     None
 }
+
+fn lcm(mut a: u32, b: u32) -> u32 {
+    while a % b != 0 {
+        a += b
+    }
+    a
+}
