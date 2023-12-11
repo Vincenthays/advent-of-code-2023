@@ -10,7 +10,7 @@ fn main() {
             let (cards, bid) = l.split_once(' ').unwrap();
             let mut values = cards
                 .chars()
-                .filter_map(|c| if c == 'J' { None } else { Some(c) })
+                .filter(|&c| c != 'J')
                 .fold(HashMap::new(), |mut acc, x| {
                     *acc.entry(x).or_insert(0) += 1;
                     acc
@@ -19,7 +19,7 @@ fn main() {
                 .collect::<Vec<u32>>();
 
             values.sort();
-            let nb_joker = cards.chars().filter(|c| *c == 'J').count() as u32;
+            let nb_joker = cards.chars().filter(|&c| c == 'J').count() as u32;
             match nb_joker {
                 0 => {},
                 5 => { values = vec![5] }
@@ -59,7 +59,8 @@ fn get_score(mut values: Vec<u32>) -> u32 {
         [1, 1, 3] => 3,
         [1, 2, 2] => 2,
         [1, 1, 1, 2] => 1,
-        _ => 0
+        [1, 1, 1, 1, 1] => 0,
+        _ => panic!("not found {values:?}")
     }
 }
 
