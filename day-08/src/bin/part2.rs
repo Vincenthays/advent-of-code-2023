@@ -51,8 +51,7 @@ fn lcm(first: u64, second: u64) -> u64 {
 }
 
 fn gcd(first: u64, second: u64) -> u64 {
-    let mut max = first;
-    let mut min = second;
+    let (mut min, mut max) = (first, second);
     if min > max {
         (min, max) = (max, min);
     }
