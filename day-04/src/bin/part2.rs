@@ -15,7 +15,7 @@ fn main() {
 
             have
                 .into_iter()
-                .filter_map(|n| if winning.contains(&n) { Some(n) } else { None })
+                .filter(|n| winning.contains(&n))
                 .count() as u32
         })
         .collect::<Vec<_>>();
