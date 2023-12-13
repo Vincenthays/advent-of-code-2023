@@ -3,7 +3,7 @@
 fn main() {
     let [time, distance] =
         include_str!("input.txt")
-            .split('\n')
+            .lines()
             .map(|l| l
                 .split_once(':')
                 .unwrap()
